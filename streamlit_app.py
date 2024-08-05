@@ -14,7 +14,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all logs except errors
 # model = pickle.load(pickle_in)
 
 def load_model():
-    model=tf.keras.models.load_model('./pretrained_trash_classification.h5')
+    model=tf.keras.models.load_model('./pretrained_trash_classification.h5', compile=False)
     return model
 with st.spinner('Model is being loaded..'):
     model=load_model()
@@ -28,6 +28,7 @@ def predict(image):
 # Define the labels (adjust according to your model's classes)
 labels = ['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']
 
+@st.cache
 def preprocess_image(image):
     """Preprocess the image to the required input shape for the model."""
     image = image.resize((224, 224))  # Adjust size according to model's input size
