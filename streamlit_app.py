@@ -8,6 +8,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all logs except errors
 from keras.models import load_model
 from PIL import Image
 import numpy as np
+from tensorflow.keras.optimizers import Adam
 
 # Define the model file path
 model_path = './pretrained_trash_classification.h5'
@@ -18,6 +19,9 @@ if not os.path.exists(model_path):
 else:
     # Load the trained model
     model = load_model(model_path)
+    
+    # Recompile the model with the same settings used during training
+    model.compile(optimizer = Adam(learning_rate=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
 
     # Define the labels (adjust according to your model's classes)
     labels = ['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']
