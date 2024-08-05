@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np
 
 # Load the trained model
-model = load_model('trash_detection/pretrained_trash_classification.keras')
+model = load_model('pretrained_trash_classification.keras')
 
 # Define the labels (adjust according to your model's classes)
 labels = ['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']
