@@ -10,6 +10,8 @@ from PIL import Image
 import numpy as np
 from tensorflow.keras.optimizers import Adam
 
+tf.get_logger().setLevel('ERROR')
+
 # Define the model file path
 model_path = './pretrained_trash_classification.h5'
 
