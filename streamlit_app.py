@@ -2,6 +2,8 @@
 # pip install -r requirements.txt
 
 import streamlit as st
+import subprocess
+subprocess.call(["pip", "install", "-r", "./requirements.txt"])
 from keras.models import load_model
 from PIL import Image
 import numpy as np
