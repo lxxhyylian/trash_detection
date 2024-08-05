@@ -1,16 +1,23 @@
 import streamlit as st
 import subprocess
-subprocess.call(["pip", "install", "-r", "./requirements.txt"])
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Disable GPU
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all logs except errors
 
 from PIL import Image
 import numpy as np
 import pickle 
+import tensorflow as tf
 
-pickle_in = open('./pretrained_model.pkl', 'rb') 
-model = pickle.load(pickle_in)
+subprocess.call(["pip", "install", "-r", "./requirements.txt"])
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Disable GPU
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all logs except errors
+# pickle_in = open('trash_detection/pretrained_model.pkl', 'rb') 
+# model = pickle.load(pickle_in)
+
+def load_model():
+    model=tf.keras.models.load_model('./pretrained_trash_classification.h5')
+    return model
+with st.spinner('Model is being loaded..'):
+    model=load_model()
 
 def predict(image):
     processed_image = preprocess_image(image)
