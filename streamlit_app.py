@@ -1,7 +1,6 @@
 # Run this command in terminal to install all needed resources in requirements.txt
 # pip install -r requirements.txt
 
-subprocess.call(["pip", "install", "-r", "./requirements.txt"])
 import streamlit as st
 from keras.models import load_model
 from PIL import Image
