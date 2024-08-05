@@ -1,8 +1,10 @@
+import streamlit as st
+import subprocess
+subprocess.call(["pip", "install", "-r", "./requirements.txt"])
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Disable GPU
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all logs except errors
 
-import streamlit as st
 from keras.models import load_model
 from PIL import Image
 import numpy as np
