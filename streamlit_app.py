@@ -10,7 +10,7 @@ from PIL import Image
 import numpy as np
 
 # Define the model file path
-model_path = './pretrained_trash_classification.keras'
+model_path = './pretrained_trash_classification.h5'
 
 # Check if the model file exists
 if not os.path.exists(model_path):
