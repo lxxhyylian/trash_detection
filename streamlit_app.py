@@ -4,14 +4,13 @@
 import streamlit as st
 import subprocess
 
-import streamlit as st
 from keras.models import load_model
 from PIL import Image
 import numpy as np
 import os
 
 # Define the model file path
-model_path = 'pretrained_trash_classification.keras'
+model_path = './pretrained_trash_classification.keras'
 
 # Check if the model file exists
 if not os.path.exists(model_path):
