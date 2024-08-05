@@ -1,30 +1,36 @@
-import streamlit as st
 import subprocess
 subprocess.call(["pip", "install", "-r", "./requirements.txt"])
+
+
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Disable GPU
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all logs except errors
 
+import streamlit as st
 from keras.models import load_model
+from keras.optimizers import Adam
 from PIL import Image
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.optimizers import Adam
 
+# Suppress TensorFlow warnings
 tf.get_logger().setLevel('ERROR')
 
 # Define the model file path
 model_path = './pretrained_trash_classification.h5'
 
-# Check if the model file exists
+@st.cache_resource
+def load_trained_model(model_path):
+    model = load_model(model_path)
+    model.compile(optimizer=Adam(learning_rate=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
+    return model
+
+# Load the trained model
 if not os.path.exists(model_path):
     st.error(f"Model file not found: {model_path}")
 else:
-    # Load the trained model
-    model = load_model(model_path)
-    
-    # Recompile the model with the same settings used during training
-    model.compile(optimizer = Adam(learning_rate=1e-4), loss='categorical_crossentropy', metrics=['accuracy'])
+    model = load_trained_model(model_path)
+    print("compiling completed")
 
     # Define the labels (adjust according to your model's classes)
     labels = ['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']
@@ -46,7 +52,7 @@ else:
     # Streamlit app
     st.title("Trash Classification")
 
-    uploaded_file = st.file_uploader("Choose an image...", type="jpg")
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
