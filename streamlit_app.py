@@ -1,16 +1,14 @@
-# Run this command in terminal to install all needed resources in requirements.txt
-# pip install -r requirements.txt
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Disable GPU
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all logs except errors
 
 import streamlit as st
-import subprocess
-
 from keras.models import load_model
 from PIL import Image
 import numpy as np
-import os
 
 # Define the model file path
-model_path = './pretrained_trash_classification.keras'
+model_path = 'pretrained_trash_classification.keras'
 
 # Check if the model file exists
 if not os.path.exists(model_path):
