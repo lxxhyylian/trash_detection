@@ -8,6 +8,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all logs except errors
 from keras.models import load_model
 from PIL import Image
 import numpy as np
+import tensorflow as tf
 from tensorflow.keras.optimizers import Adam
 
 tf.get_logger().setLevel('ERROR')
